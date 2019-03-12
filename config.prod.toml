@@ -10,7 +10,8 @@ Paginate = 5
   identifier = "home"
   url = "/"
 
+
 # datocms:start
-title = "Creative Inc."
+title = "Berxi"
 languageCode = "en"
 # datocms:end

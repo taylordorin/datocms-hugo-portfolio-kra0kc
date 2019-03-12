@@ -91,5 +91,28 @@ module.exports = (dato, root, i18n) => {
       });
     });
   });
+
+  // Create a `work` directory (or empty it if already exists)...
+  root.directory('content/mainNavigation', dir => {
+    // ...and for each of the works stored online...
+    dato.navigations.forEach((nav, index) => {
+      // ...create a markdown file with all the metadata in the frontmatter
+      dir.createPost(`${nav.slug}.md`, 'yaml', {
+        frontmatter: {
+          title: nav.title,
+          coverImage: nav.coverImage.url({ w: 450, fm: 'jpg', auto: 'compress' }),
+          image: nav.coverImage.url({ fm: 'jpg', auto: 'compress' }),
+          detailImage: nav.coverImage.url({ w: 600, fm: 'jpg', auto: 'compress' }),
+          excerpt: nav.excerpt,
+          seoMetaTags: toHtml(nav.seoMetaTags),
+          extraImages: nav.gallery.map(item =>
+            item.url({ h: 300, fm: 'jpg', auto: 'compress' })
+          ),
+          weight: index,
+        },
+        content: nav.description
+      });
+    });
+  });
 };
 
